@@ -6,4 +6,6 @@ Best score at assignment date:0.5680
 
 Submission is now at 2440th place
 
+Team name : etuML
+
 Project authors: Yasemin Demirtaş(ydemirtas@etu.edu.tr) - Ozan Kerem Telkök(otelkok@etu.edu.tr)
