@@ -1,0 +1,59 @@
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+
+base_skin_dir=os.path.join('..','input')
+test_csv ="../input/siim-isic-melanoma-classification/test.csv"
+train_csv="../input/siim-isic-melanoma-classification/train.csv"
+df=pd.read_csv(os.path.join(base_skin_dir,train_csv))
+path=[]
+for dirname, _, filenames in os.walk('../input/siim-isic-melanoma-classification/jpeg/train/'):
+    for filename in filenames:
+           path.append(dirname+filename)
+
+df['path']=path
+#print(df.head())
+#df.isnull().sum()
+
+
+import matplotlib.pyplot as plt
+fig, ax1 = plt.subplots(1, 1, figsize= (10, 5))
+df['benign_malignant'].value_counts().plot(kind='bar')
+df['anatom_site_general_challenge'].value_counts().plot(kind='bar')
+df['age_approx'].value_counts().plot(kind='bar')
+df['sex'].value_counts().plot(kind='bar')
+df['diagnosis'].value_counts().plot(kind='bar')
+print(100*df.groupby(['sex','benign_malignant']).size() / len (df.index))
+print(100*df.groupby(['age_approx','benign_malignant']).size() / len (df.index))
+print(100*df.groupby(['anatom_site_general_challenge','benign_malignant']).size() / len (df.index))
+print(df.groupby(['benign_malignant']).size()/len(df.index)*100) 
+
+df=df.groupby(['benign_malignant','sex']).size()
+df=df.unstack()
+df.plot(kind='bar')
+
+
+df=df.groupby(['benign_malignant','age_approx']).size()
+df=df.unstack()
+df.plot(kind='bar')
+
+
+df=df.groupby(['benign_malignant','anatom_site_general_challenge']).size()
+df=df.unstack()
+df.plot(kind='b
+
+#sex=["male","female"]
+#location=["torso","lower extremity","upper extremity","head/neck","palms/soles","oral/genital"]
+#import random as r
+#x=r.randint(0,len(sex)-1)
+#x2=r.randint(0,len(location)-1)
+#df['sex'].fillna(sex[x],inplace=True)
+#df['age_approx'].fillna(location[x2],inplace=True)
+#df['anatom_site_general_challenge'].fillna("Unknown",inplace=True)
+#df.drop_duplicates(keep=False,inplace=True)
+#df.isnull().sum()
